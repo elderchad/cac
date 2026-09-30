@@ -95,7 +95,6 @@ process {
                 feed = "octopus-server-built-in"
                 package_id = "package"
                 properties = {
-                    Extract = "True"
                     SelectionMode = "immediate"
                 }
                 version = "26.10.20708.0-pr-19725"
