@@ -90,7 +90,7 @@ process {
             }
             worker_pool_variable = ""
 
-            packages "package" {
+            packages "blahblah" {
                 acquisition_location = "Server"
                 feed = "octopus-server-built-in"
                 package_id = "package"
