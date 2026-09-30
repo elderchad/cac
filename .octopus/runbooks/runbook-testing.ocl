@@ -58,6 +58,7 @@ process {
                 Octopus.Action.Package.DownloadOnTentacle = "False"
                 Octopus.Action.Package.FeedId = "octopus-server-built-in"
                 Octopus.Action.Package.PackageId = "appsettings"
+                Octopus.Action.RunOnServer = "false"
             }
             worker_pool_variable = ""
 
@@ -69,6 +70,35 @@ process {
                     SelectionMode = "immediate"
                 }
                 version = "2.0.0"
+            }
+        }
+    }
+
+    step "run-a-script" {
+        name = "Run a Script"
+        properties = {
+            Octopus.Action.TargetRoles = "jsm"
+        }
+
+        action {
+            action_type = "Octopus.Script"
+            properties = {
+                Octopus.Action.RunOnServer = "false"
+                Octopus.Action.Script.ScriptBody = "write-host 'hi'"
+                Octopus.Action.Script.ScriptSource = "Inline"
+                Octopus.Action.Script.Syntax = "PowerShell"
+            }
+            worker_pool_variable = ""
+
+            packages "package" {
+                acquisition_location = "Server"
+                feed = "octopus-server-built-in"
+                package_id = "package"
+                properties = {
+                    Extract = "True"
+                    SelectionMode = "immediate"
+                }
+                version = "26.9.20489.0"
             }
         }
     }
