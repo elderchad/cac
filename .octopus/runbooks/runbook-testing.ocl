@@ -23,6 +23,7 @@ process {
             properties = {
                 Octopus.Action.Package.FeedId = "octopus-server-built-in"
                 Octopus.Action.Package.PackageId = "blurp"
+                Octopus.Action.RunOnServer = "false"
                 Octopus.Action.Template.Id = "ActionTemplates-5883"
                 Octopus.Action.Template.Version = "0"
                 PackageVar = "{\"PackageId\":\"blurp\",\"FeedId\":\"octopus-server-built-in\"}"
@@ -38,6 +39,36 @@ process {
                     SelectionMode = "deferred"
                 }
                 version = "1.0.0"
+            }
+        }
+    }
+
+    step "deploy-a-package" {
+        name = "Deploy a Package"
+        properties = {
+            Octopus.Action.TargetRoles = "cli"
+        }
+
+        action {
+            action_type = "Octopus.TentaclePackage"
+            properties = {
+                Octopus.Action.EnabledFeatures = ",Octopus.Features.ConfigurationTransforms,Octopus.Features.ConfigurationVariables"
+                Octopus.Action.Package.AutomaticallyRunConfigurationTransformationFiles = "True"
+                Octopus.Action.Package.AutomaticallyUpdateAppSettingsAndConnectionStrings = "True"
+                Octopus.Action.Package.DownloadOnTentacle = "False"
+                Octopus.Action.Package.FeedId = "octopus-server-built-in"
+                Octopus.Action.Package.PackageId = "appsettings"
+            }
+            worker_pool_variable = ""
+
+            packages {
+                acquisition_location = "Server"
+                feed = "octopus-server-built-in"
+                package_id = "appsettings"
+                properties = {
+                    SelectionMode = "immediate"
+                }
+                version = "2.0.0"
             }
         }
     }
