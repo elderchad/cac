@@ -98,7 +98,7 @@ process {
                     Extract = "True"
                     SelectionMode = "immediate"
                 }
-                version = "26.9.20489.0"
+                version = "26.10.20708.0-pr-19725"
             }
         }
     }
